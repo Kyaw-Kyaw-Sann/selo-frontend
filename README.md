@@ -6,14 +6,14 @@ Selo သည် ဆိုင်တစ်ဆိုင်အတွက် ရည်�
 
 ## လက်ရှိအခြေအနေ
 
-Frontend သည် foundation နှင့် Authentication/Management layout integration အဆင့်တွင် ရှိသည်။ Business data pages မတည်ဆောက်ရသေးပါ။
+Frontend သည် Product Catalog အဆင့်တွင် ရှိသည်။ Units၊ Categories နှင့် Products list၊ create/edit နှင့် activate/deactivate workflows ကို ချိတ်ထားပြီး real backend/browser verification ကျန်နေသည်။
 
 - React + TypeScript + Vite scaffold ရှိသည်။
 - Tailwind CSS ကို `src/index.css` မှတစ်ဆင့် ချိတ်ထားပြီး light theme tokens သတ်မှတ်ထားသည်။ သီးခြား `styles/globals.css` မသုံးပါ။
 - React Router၊ Lucide React နှင့် Sonner ကို install လုပ်ထားသည်။
 - Axios၊ TanStack Query၊ React Hook Form၊ Zod နှင့် resolver ကို install လုပ်ထားသည်။
-- Login form၊ session recovery၊ Auth guard နှင့် logout ကို ချိတ်ထားသည်။ Owner guard ကို Owner-only routes ရှိလာမှ အသုံးပြုမည်။
-- Management shell၊ Products navigation၊ shared page header နှင့် loading/error/empty states ရှိသည်။ Products page သည် title သာဖြစ်ပြီး catalog API မချိတ်ရသေးပါ။
+- Login form၊ session recovery၊ Auth guard နှင့် logout ကို ချိတ်ထားသည်။ Product create/edit routes တွင် Owner guard သုံးထားသည်။
+- Management shell၊ Products/Units/Categories navigation၊ shared page states နှင့် catalog API integrations ရှိသည်။ Products တွင် live search၊ exact category/status filters၊ pagination နှင့် product-specific unit fields ပါသည်။
 - Build/lint နှင့် mocked auth checks အောင်မြင်ထားသော်လည်း real browser cookie/CORS၊ keyboard နှင့် responsive behavior ကို အတည်မပြုရသေးပါ။
 
 Backend နှင့်ပတ်သက်၍ project context အရ catalog၊ inventory နှင့် purchasing endpoints ရှိပြီး sales list/detail ကို ဖတ်နိုင်သည်။ Checkout၊ customers/loyalty၊ returns နှင့် reports/dashboard သည် နောက်ပိုင်းလုပ်ငန်းများဖြစ်သည်။ Integration တစ်ခုချင်းစီတွင် လက်ရှိ backend code နှင့် API contract ကို ပြန်စစ်ရမည်။
@@ -81,6 +81,38 @@ Shared Axios client နှင့် environment configuration ကို ချ�
 
 ## Development အစီအစဉ်
 
+Units အတွက် browser မှာ ဆက်စစ်ရန်—
+
+- Name/code live search ကို 300ms debounce ဖြင့် စစ်ခြင်း၊ search အသစ်တွင် page 1 ပြန်စခြင်း၊ no-results နှင့် pagination စစ်ခြင်း
+- Owner ဖြင့် create/edit၊ duplicate code error၊ active/inactive ပြောင်းခြင်းနှင့် list refresh စစ်ခြင်း
+- Cashier ဖြင့် list ဖတ်နိုင်ပြီး management actions မပေါ်ခြင်း
+- Dialog initial focus၊ Tab၊ Escape/Cancel၊ save pending နှင့် close နောက် focus ပြန်ရောက်မှု စစ်ခြင်း
+- Session expired၊ permission denied၊ network failure နှင့် retry behavior စစ်ခြင်း
+
+Implementation review နှင့် mocked checks သည် real backend/browser workflow အောင်မြင်ကြောင်း အတည်ပြုချက် မဟုတ်ပါ။
+
+Categories အတွက် browser မှာ ဆက်စစ်ရန်—
+
+- Root/child list နှင့် root-only pagination counts မှန်ခြင်း
+- Parent options ကို root pages အားလုံးက ရရှိခြင်း၊ child ကို parent အဖြစ် မရွေးနိုင်ခြင်း
+- Create root/child၊ name-only edit၊ child ကို root ပြောင်းခြင်းနှင့် parent reassignment စစ်ခြင်း
+- Self-parent နှင့် children ရှိတဲ့ root ကို အခြား parent အောက်ရွှေ့ခြင်းကို တားဆီးခြင်း
+- Save အောင်မြင်လျှင် first page ပြန်စခြင်း၊ stale parent error နောက် options refresh ဖြစ်ခြင်း
+- Owner-only actions၊ status confirmation နှင့် root status ပြောင်းလဲမှုက children/products ကို မပြောင်းခြင်း
+- Failure နောက် form values၊ keyboard focus၊ pending state နှင့် session/permission errors စစ်ခြင်း
+
+Products အတွက် browser မှာ ဆက်စစ်ရန်—
+
+- Name/SKU/barcode live search၊ exact category/status filters၊ pagination နှင့် no-results စစ်ခြင်း
+- Owner ဖြင့် create/edit၊ base unit factor 1၊ unit အများဆုံး 3 ခု၊ duplicate SKU/barcode errors စစ်ခြင်း
+- Edit တွင် base unit မပြောင်းနိုင်ခြင်း၊ changed fields သာ PATCH ပို့ခြင်း၊ omitted units ဆက်ရှိခြင်း စစ်ခြင်း
+- Product-unit active flag နှင့် product status သီးခြားဖြစ်ခြင်း၊ inactive shared unit ကို product-unit အဖြစ် ပြန်ဖွင့်မရခြင်း စစ်ခြင်း
+- Background refresh network failure နောက် cached data ရှိလျှင် form values ဆက်ရှိခြင်း၊ retry အောင်မြင်ခြင်း စစ်ခြင်း
+- Request failure နောက် inputs မပျောက်ခြင်း၊ save pending၊ 401/403/404 နှင့် Owner/Cashier access စစ်ခြင်း
+- Cancel မှာ unsaved changes confirmation ပြခြင်း၊ keyboard နှင့် narrow viewport စစ်ခြင်း
+
+Unsaved changes confirmation သည် form ၏ Cancel action အတွက်သာ ဖြစ်သည်။ Sidebar navigation နှင့် browser reload ကို မတားထားသေးပါ။
+
 1. Foundation နှင့် styling ပြင်ဆင်ခြင်း
 2. Authentication နှင့် browser cookie flow စစ်ဆေးခြင်း
 3. Management layout နှင့် shared page states
@@ -93,11 +125,3 @@ Feature တစ်ခုချင်းစီကို page/form → API integrat
 
 UI သည် light theme၊ neutral surfaces နှင့် emerald accent ကို အသုံးပြုမည်။ API မရှိသေးသော metrics၊ charts နှင့် လုပ်ဆောင်၍မရသော controls များ မထည့်ပါ။
 
-## Project references နှင့် ပူးပေါင်းလုပ်ဆောင်ပုံ
-
-- [AGENTS.md](./AGENTS.md) — project scope၊ business rules၊ folder structure နှင့် collaboration instructions
-- Backend workspace: `D:\User\selo-backend`
-- Current API reference: `D:\User\selo-backend\API_REFERENCE.md`
-- Approved database design: `D:\User\selo-backend\selo.dbml`
-
-ပုံမှန်အားဖြင့် developer က code ရေးပြီး Codex က ရှင်းလင်းခြင်း၊ focused snippets ပေးခြင်း၊ review နှင့် debugging လုပ်ပေးမည်။ လက်ရှိ request တွင် `Build Now` ဟု တိတိကျကျ ပါမှသာ Codex က ခွင့်ပြုထားသော scope အတွင်း ဖိုင်ပြင်ခြင်း သို့မဟုတ် dependencies ထည့်သွင်းခြင်း ပြုလုပ်မည်။

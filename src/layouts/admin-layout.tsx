@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom'
-import Header from './header'
-import Sidebar from './sidebar'
+import { Outlet } from "react-router-dom";
+import Header from "./header";
+import Sidebar from "./sidebar";
 
 export default function AdminLayout() {
   return (
@@ -16,10 +16,10 @@ export default function AdminLayout() {
       <div className="min-w-0 flex-1">
         <Header />
 
-        <main id="main-content" tabIndex={-1} className="min-w-0 p-4 md:p-6">
+        <main id="main-content" tabIndex={-1} className="mx-auto w-full min-w-0 max-w-[1440px] px-4 py-6 md:px-6 md:py-8 lg:px-8">
           <Outlet />
         </main>
       </div>
     </div>
-  )
+  );
 }

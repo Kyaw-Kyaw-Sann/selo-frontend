@@ -1,11 +1,11 @@
-import type { ReactNode } from 'react'
-import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClient } from '../lib/query-client'
-import { Toaster } from '../components/ui/toaster'
+import type { ReactNode } from "react";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "../lib/query-client";
+import { Toaster } from "../components/ui/toaster";
 
 type AppProvidersProps = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 export function AppProviders({ children }: AppProvidersProps) {
   return (
@@ -13,5 +13,5 @@ export function AppProviders({ children }: AppProvidersProps) {
       {children}
       <Toaster />
     </QueryClientProvider>
-  )
+  );
 }

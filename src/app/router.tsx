@@ -9,6 +9,7 @@ import CreateProductPage from "../features/products/pages/create-product-page";
 import EditProductPage from "../features/products/pages/edit-product-page";
 import ProductDetailPage from "../features/products/pages/product-detail-page";
 import OwnerGuard from "../features/auth/owner-guard";
+import SuppliersPage from "../features/suppliers/pages/suppliers-page";
 
 export default function AppRouter() {
   return (
@@ -20,6 +21,7 @@ export default function AppRouter() {
           <Route path="products" element={<ProductsPage />} />
           <Route path="products/:id" element={<ProductDetailPage />} />
           <Route element={<OwnerGuard />}>
+            <Route path="suppliers" element={<SuppliersPage />} />
             <Route path="products/new" element={<CreateProductPage />} />
             <Route path="products/:id/edit" element={<EditProductPage />} />
           </Route>

@@ -6,14 +6,14 @@ Selo သည် ဆိုင်တစ်ဆိုင်အတွက် ရည်�
 
 ## လက်ရှိအခြေအနေ
 
-Frontend သည် Product Catalog အဆင့်တွင် ရှိသည်။ Units၊ Categories နှင့် Products list၊ create/edit နှင့် activate/deactivate workflows ကို ချိတ်ထားပြီး real backend/browser verification ကျန်နေသည်။
+Frontend တွင် Product Catalog နှင့် Suppliers workflows ကို ချိတ်ထားသည်။ Units၊ Categories၊ Products နှင့် Suppliers အတွက် list၊ create/edit နှင့် activate/deactivate ရှိပြီး Products/Suppliers details ကိုလည်း ကြည့်နိုင်သည်။ Real backend/browser verification ကျန်နေသည်။
 
 - React + TypeScript + Vite scaffold ရှိသည်။
 - Tailwind CSS ကို `src/index.css` မှတစ်ဆင့် ချိတ်ထားပြီး light theme tokens သတ်မှတ်ထားသည်။ သီးခြား `styles/globals.css` မသုံးပါ။
 - React Router၊ Lucide React နှင့် Sonner ကို install လုပ်ထားသည်။
 - Axios၊ TanStack Query၊ React Hook Form၊ Zod နှင့် resolver ကို install လုပ်ထားသည်။
-- Login form၊ session recovery၊ Auth guard နှင့် logout ကို ချိတ်ထားသည်။ Product create/edit routes တွင် Owner guard သုံးထားသည်။
-- Management shell၊ Products/Units/Categories navigation၊ shared page states နှင့် catalog API integrations ရှိသည်။ Products တွင် live search၊ exact category/status filters၊ pagination နှင့် product-specific unit fields ပါသည်။
+- Login form၊ session recovery၊ Auth guard နှင့် logout ကို ချိတ်ထားသည်။ Product create/edit နှင့် Suppliers routes တွင် Owner guard သုံးထားသည်။
+- Management shell၊ Products/Units/Categories နှင့် Owner-only Suppliers navigation၊ shared page states နှင့် API integrations ရှိသည်။ Products တွင် live search၊ exact category/status filters၊ pagination နှင့် product-specific unit fields ပါသည်။
 - Build/lint နှင့် mocked auth checks အောင်မြင်ထားသော်လည်း real browser cookie/CORS၊ keyboard နှင့် responsive behavior ကို အတည်မပြုရသေးပါ။
 
 Backend နှင့်ပတ်သက်၍ project context အရ catalog၊ inventory နှင့် purchasing endpoints ရှိပြီး sales list/detail ကို ဖတ်နိုင်သည်။ Checkout၊ customers/loyalty၊ returns နှင့် reports/dashboard သည် နောက်ပိုင်းလုပ်ငန်းများဖြစ်သည်။ Integration တစ်ခုချင်းစီတွင် လက်ရှိ backend code နှင့် API contract ကို ပြန်စစ်ရမည်။
@@ -111,7 +111,17 @@ Products အတွက် browser မှာ ဆက်စစ်ရန်—
 - Request failure နောက် inputs မပျောက်ခြင်း၊ save pending၊ 401/403/404 နှင့် Owner/Cashier access စစ်ခြင်း
 - Cancel မှာ unsaved changes confirmation ပြခြင်း၊ keyboard နှင့် narrow viewport စစ်ခြင်း
 
-Unsaved changes confirmation သည် form ၏ Cancel action အတွက်သာ ဖြစ်သည်။ Sidebar navigation နှင့် browser reload ကို မတားထားသေးပါ။
+Suppliers အတွက် browser မှာ ဆက်စစ်ရန်—
+
+- Owner ဖြင့် live search (name/phone/contact person)၊ status filter၊ pagination နှင့် no-results စစ်ခြင်း
+- Cashier မှာ menu မပေါ်ခြင်း၊ `/suppliers` ကို တိုက်ရိုက်ဝင်လျှင် permission denied ပြခြင်း
+- Supplier name ကိုနှိပ်ပြီး detail ဖွင့်ခြင်း၊ nullable/multiline address နှင့် notes ကို မှန်ကန်စွာ ပြခြင်း
+- Create/edit၊ blank optional fields ကို null ပြောင်းခြင်း၊ unchanged fields မပို့ခြင်းနှင့် failure နောက် inputs ဆက်ရှိခြင်း
+- Activate/deactivate confirmation၊ Cancel မှာ request မပို့ခြင်း၊ pending အချိန် duplicate submission/close တားခြင်း
+- Save/status success နောက် list/detail refresh၊ status filter ကြောင့် row ပျောက်လျှင် page 1 ပြန်စခြင်း
+- 401/403/404၊ network failure/retry၊ dialog focus/Tab/Escape နှင့် narrow viewport စစ်ခြင်း
+
+Product form ၏ Cancel action နှင့် Supplier form ၏ close actions တွင် unsaved changes confirmation ရှိသည်။ Sidebar navigation နှင့် browser reload ကို မတားထားသေးပါ။
 
 1. Foundation နှင့် styling ပြင်ဆင်ခြင်း
 2. Authentication နှင့် browser cookie flow စစ်ဆေးခြင်း

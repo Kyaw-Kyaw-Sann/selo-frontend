@@ -1,5 +1,6 @@
-import { FolderTree, Package, Ruler } from "lucide-react";
+import { FolderTree, Package, Ruler, Truck } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
+import { useSessionQuery } from "../features/auth/auth.queries";
 
 const catalogLinks = [
   { to: "/products", label: "Products", icon: Package },
@@ -8,6 +9,8 @@ const catalogLinks = [
 ];
 
 export default function Sidebar() {
+  const { data: user } = useSessionQuery();
+
   return (
     <aside className="border-b border-border bg-surface md:sticky md:top-0 md:flex md:h-dvh md:w-56 md:shrink-0 md:flex-col md:self-start md:border-r md:border-b-0">
       <Link
@@ -45,6 +48,24 @@ export default function Sidebar() {
             <span>{label}</span>
           </NavLink>
         ))}
+        {user?.role === "OWNER" && (
+          <>
+            <p className="hidden px-3 pt-6 pb-3 text-xs font-medium text-muted md:block">Purchasing</p>
+            <NavLink
+              to="/suppliers"
+              className={({ isActive }) =>
+                `flex min-h-11 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-control px-3 py-2.5 text-sm md:justify-start md:gap-3 ${
+                  isActive
+                    ? "bg-primary-soft font-semibold text-primary"
+                    : "font-medium text-body hover:bg-surface-muted hover:text-heading"
+                }`
+              }
+            >
+              <Truck size={18} strokeWidth={1.75} aria-hidden="true" className="shrink-0" />
+              <span>Suppliers</span>
+            </NavLink>
+          </>
+        )}
       </nav>
     </aside>
   );

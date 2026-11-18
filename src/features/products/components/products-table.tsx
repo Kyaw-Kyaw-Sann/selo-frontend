@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Badge from '../../../components/ui/badge'
+import ProductImage from './product-image'
 import type { RootCategory } from '../../categories/categories.types'
 import type { Unit } from '../../units/units.types'
 import type { Product } from '../products.types'
@@ -22,6 +23,7 @@ export default function ProductsTable({ products, categories, units, canEdit = f
       <table className="w-full min-w-[960px] text-left text-sm">
         <thead className="border-b border-border bg-surface-muted text-xs whitespace-nowrap text-muted">
           <tr>
+            <th scope="col" className="w-18 px-4 py-3 font-semibold">Image</th>
             <th scope="col" className="px-4 py-3 font-semibold">Product</th>
             <th scope="col" className="px-4 py-3 font-semibold">SKU</th>
             <th scope="col" className="px-4 py-3 font-semibold">Category</th>
@@ -39,7 +41,8 @@ export default function ProductsTable({ products, categories, units, canEdit = f
 
             return (
               <tr key={product.id} className="hover:bg-surface-muted/40">
-                <th scope="row" className="min-w-44 max-w-xs px-4 py-2.5 font-semibold wrap-break-word text-heading">{product.name}</th>
+                <td className="px-4 py-2"><ProductImage imagePath={product.imagePath} name={product.name} /></td>
+                <th scope="row" className="min-w-44 max-w-xs px-4 py-2.5 font-semibold wrap-break-word text-heading"><Link to={`/products/${product.id}`} className="rounded-control underline-offset-4 hover:text-primary hover:underline">{product.name}</Link></th>
                 <td className="px-4 py-2.5 font-mono text-xs">{product.sku}</td>
                 <td className="px-4 py-2.5">{product.categoryId === null ? 'Uncategorized' : categoryNames.get(product.categoryId) ?? `Category #${product.categoryId}`}</td>
                 <td className="px-4 py-2.5 text-right tabular-nums">

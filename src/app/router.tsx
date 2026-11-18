@@ -7,6 +7,7 @@ import UnitsPage from "../features/units/pages/units-page.tsx";
 import CategoriesPage from "../features/categories/pages/categories-page";
 import CreateProductPage from "../features/products/pages/create-product-page";
 import EditProductPage from "../features/products/pages/edit-product-page";
+import ProductDetailPage from "../features/products/pages/product-detail-page";
 import OwnerGuard from "../features/auth/owner-guard";
 
 export default function AppRouter() {
@@ -17,6 +18,7 @@ export default function AppRouter() {
         <Route element={<AdminLayout />}>
           <Route index element={<Navigate to="/products" replace />} />
           <Route path="products" element={<ProductsPage />} />
+          <Route path="products/:id" element={<ProductDetailPage />} />
           <Route element={<OwnerGuard />}>
             <Route path="products/new" element={<CreateProductPage />} />
             <Route path="products/:id/edit" element={<EditProductPage />} />

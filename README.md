@@ -6,7 +6,7 @@ Selo သည် ဆိုင်တစ်ဆိုင်အတွက် ရည်�
 
 ## လက်ရှိအခြေအနေ
 
-Frontend တွင် Product Catalog နှင့် Suppliers workflows ကို ချိတ်ထားသည်။ Units၊ Categories၊ Products နှင့် Suppliers အတွက် list၊ create/edit နှင့် activate/deactivate ရှိပြီး Products/Suppliers details ကိုလည်း ကြည့်နိုင်သည်။ Real backend/browser verification ကျန်နေသည်။
+Frontend တွင် Product Catalog၊ Suppliers နှင့် Inventory workflows ကို ချိတ်ထားသည်။ Units၊ Categories၊ Products နှင့် Suppliers အတွက် list၊ create/edit နှင့် activate/deactivate ရှိပြီး Products/Suppliers details ကိုလည်း ကြည့်နိုင်သည်။ Inventory တွင် stock list၊ Owner-only movement history/detail နှင့် stock adjustment ရှိသည်။ Real backend/browser verification ကျန်နေသည်။
 
 - React + TypeScript + Vite scaffold ရှိသည်။
 - Tailwind CSS ကို `src/index.css` မှတစ်ဆင့် ချိတ်ထားပြီး light theme tokens သတ်မှတ်ထားသည်။ သီးခြား `styles/globals.css` မသုံးပါ။
@@ -121,7 +121,21 @@ Suppliers အတွက် browser မှာ ဆက်စစ်ရန်—
 - Save/status success နောက် list/detail refresh၊ status filter ကြောင့် row ပျောက်လျှင် page 1 ပြန်စခြင်း
 - 401/403/404၊ network failure/retry၊ dialog focus/Tab/Escape နှင့် narrow viewport စစ်ခြင်း
 
-Product form ၏ Cancel action နှင့် Supplier form ၏ close actions တွင် unsaved changes confirmation ရှိသည်။ Sidebar navigation နှင့် browser reload ကို မတားထားသေးပါ။
+Inventory အတွက် browser မှာ ဆက်စစ်ရန်—
+
+- Owner/Cashier နှစ်မျိုးလုံး stock list/search/status filter/pagination ကြည့်နိုင်ခြင်း၊ quantities ကို base units နဲ့ ပြခြင်း
+- Cashier မှာ adjustment/history actions မပေါ်ခြင်း၊ movements URL ကို တိုက်ရိုက်ဝင်လျှင် permission denied ပြခြင်း
+- All/product-specific movements၊ movement type/date filters၊ invalid date range နှင့် UTC timestamps စစ်ခြင်း
+- Movement detail မှာ signed change၊ before/after၊ reason၊ source-item reference နှင့် operation key ပြခြင်း
+- Adjustment positive/negative quantity၊ zero/fraction rejection၊ required reason နှင့် Review/Back/Confirm စစ်ခြင်း
+- Pending အချိန် duplicate submission/close တားခြင်း၊ negative stock နှင့် stock limit errors ပြခြင်း
+- Success နောက် server before/after quantities ပြခြင်း၊ inventory/movements/products caches refresh နှင့် filtered page ပြန်စခြင်း
+- Network/5xx result မသေချာလျှင် same UUID/body နဲ့သာ retry လုပ်ခြင်း၊ duplicate key ကို success အဖြစ်မယူခြင်း
+- 401/403/404၊ keyboard/focus၊ narrow viewport နှင့် request failure နောက် input values ဆက်ရှိခြင်း
+
+Adjustment key/body ကို dialog ဖွင့်ထားစဉ် ထိန်းထားသည်။ Result မသေချာဘဲ dialog ပိတ်ခြင်း သို့မဟုတ် reload လုပ်ပြီးနောက် adjustment အသစ်မပို့မီ movement history ကို အရင်စစ်ရမည်။
+
+Product form ၏ Cancel action၊ Supplier/Adjustment form ၏ close actions တွင် unsaved changes confirmation ရှိသည်။ Sidebar navigation နှင့် browser reload ကို မတားထားသေးပါ။
 
 1. Foundation နှင့် styling ပြင်ဆင်ခြင်း
 2. Authentication နှင့် browser cookie flow စစ်ဆေးခြင်း

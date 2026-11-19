@@ -1,4 +1,4 @@
-import { FolderTree, Package, Ruler, Truck } from "lucide-react";
+import { Boxes, FolderTree, Package, Ruler, Truck } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import { useSessionQuery } from "../features/auth/auth.queries";
 
@@ -6,6 +6,7 @@ const catalogLinks = [
   { to: "/products", label: "Products", icon: Package },
   { to: "/units", label: "Units", icon: Ruler },
   { to: "/categories", label: "Categories", icon: FolderTree },
+  { to: "/inventory", label: "Inventory", icon: Boxes },
 ];
 
 export default function Sidebar() {
@@ -30,7 +31,7 @@ export default function Sidebar() {
         </span>
       </Link>
 
-      <p className="hidden px-6 pt-6 pb-3 text-xs font-medium text-muted md:block">Catalog</p>
+      <p className="hidden px-6 pt-6 pb-3 text-xs font-medium text-muted md:block">Catalog &amp; inventory</p>
       <nav aria-label="Main navigation" className="flex gap-1 overflow-x-auto px-3 pb-3 md:block md:space-y-1 md:overflow-y-auto md:pb-6">
         {catalogLinks.map(({ to, label, icon: Icon }) => (
           <NavLink

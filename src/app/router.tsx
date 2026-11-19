@@ -10,6 +10,8 @@ import EditProductPage from "../features/products/pages/edit-product-page";
 import ProductDetailPage from "../features/products/pages/product-detail-page";
 import OwnerGuard from "../features/auth/owner-guard";
 import SuppliersPage from "../features/suppliers/pages/suppliers-page";
+import InventoryPage from "../features/inventory/pages/inventory-page";
+import StockMovementsPage from "../features/inventory/pages/stock-movements-page";
 
 export default function AppRouter() {
   return (
@@ -20,7 +22,9 @@ export default function AppRouter() {
           <Route index element={<Navigate to="/products" replace />} />
           <Route path="products" element={<ProductsPage />} />
           <Route path="products/:id" element={<ProductDetailPage />} />
+          <Route path="inventory" element={<InventoryPage />} />
           <Route element={<OwnerGuard />}>
+            <Route path="inventory/movements" element={<StockMovementsPage />} />
             <Route path="suppliers" element={<SuppliersPage />} />
             <Route path="products/new" element={<CreateProductPage />} />
             <Route path="products/:id/edit" element={<EditProductPage />} />

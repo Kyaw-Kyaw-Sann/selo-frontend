@@ -18,6 +18,7 @@ import NewPurchasePage from "../features/purchases/pages/new-purchase-page";
 import SalesPage from "../features/sales/pages/sales-page";
 import SaleDetailPage from "../features/sales/pages/sale-detail-page";
 import PosPage from "../features/sales/pages/pos-page";
+import StaffPage from "../features/users/pages/staff-page";
 
 export default function AppRouter() {
   return (
@@ -33,6 +34,7 @@ export default function AppRouter() {
           <Route path="sales" element={<SalesPage />} />
           <Route path="sales/:id" element={<SaleDetailPage />} />
           <Route element={<OwnerGuard />}>
+            <Route path="staff" element={<StaffPage />} />
             <Route path="purchases" element={<PurchasesPage />} />
             <Route path="purchases/new" element={<NewPurchasePage />} />
             <Route path="purchases/:id" element={<PurchaseDetailPage />} />

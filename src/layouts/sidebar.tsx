@@ -1,4 +1,4 @@
-import { Boxes, FolderTree, Package, Receipt, Ruler, ScanBarcode, ShoppingCart, Truck } from "lucide-react";
+import { Boxes, FolderTree, Package, Receipt, Ruler, ScanBarcode, ShoppingCart, Truck, Users } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import { useSessionQuery } from "../features/auth/auth.queries";
 
@@ -9,6 +9,7 @@ const managementLinks = [
   { to: "/inventory", label: "Inventory", icon: Boxes },
   { to: "/pos", label: "POS", icon: ScanBarcode },
   { to: "/sales", label: "Sales history", icon: Receipt },
+  { to: "/staff", label: "Staff", icon: Users, ownerOnly: true },
 ];
 
 const purchasingLinks = [
@@ -40,7 +41,7 @@ export default function Sidebar() {
 
       <p className="hidden px-6 pt-6 pb-3 text-xs font-medium text-muted md:block">Store operations</p>
       <nav aria-label="Main navigation" className="flex gap-1 overflow-x-auto px-3 pb-3 md:block md:space-y-1 md:overflow-y-auto md:pb-6">
-        {managementLinks.map(({ to, label, icon: Icon }) => (
+        {managementLinks.filter(({ ownerOnly }) => !ownerOnly || user?.role === "OWNER").map(({ to, label, icon: Icon }) => (
           <NavLink
             key={to}
             to={to}

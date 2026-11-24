@@ -1,12 +1,19 @@
-import { Boxes, FolderTree, Package, Ruler, Truck } from "lucide-react";
+import { Boxes, FolderTree, Package, Receipt, Ruler, ScanBarcode, ShoppingCart, Truck } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import { useSessionQuery } from "../features/auth/auth.queries";
 
-const catalogLinks = [
+const managementLinks = [
   { to: "/products", label: "Products", icon: Package },
   { to: "/units", label: "Units", icon: Ruler },
   { to: "/categories", label: "Categories", icon: FolderTree },
   { to: "/inventory", label: "Inventory", icon: Boxes },
+  { to: "/pos", label: "POS", icon: ScanBarcode },
+  { to: "/sales", label: "Sales history", icon: Receipt },
+];
+
+const purchasingLinks = [
+  { to: "/suppliers", label: "Suppliers", icon: Truck },
+  { to: "/purchases", label: "Purchases", icon: ShoppingCart },
 ];
 
 export default function Sidebar() {
@@ -27,13 +34,13 @@ export default function Sidebar() {
           className="size-8 object-contain"
         />
         <span className="text-[28px] leading-none font-semibold tracking-tight text-primary">
-          selo
+          Selo
         </span>
       </Link>
 
-      <p className="hidden px-6 pt-6 pb-3 text-xs font-medium text-muted md:block">Catalog &amp; inventory</p>
+      <p className="hidden px-6 pt-6 pb-3 text-xs font-medium text-muted md:block">Store operations</p>
       <nav aria-label="Main navigation" className="flex gap-1 overflow-x-auto px-3 pb-3 md:block md:space-y-1 md:overflow-y-auto md:pb-6">
-        {catalogLinks.map(({ to, label, icon: Icon }) => (
+        {managementLinks.map(({ to, label, icon: Icon }) => (
           <NavLink
             key={to}
             to={to}
@@ -52,19 +59,22 @@ export default function Sidebar() {
         {user?.role === "OWNER" && (
           <>
             <p className="hidden px-3 pt-6 pb-3 text-xs font-medium text-muted md:block">Purchasing</p>
-            <NavLink
-              to="/suppliers"
-              className={({ isActive }) =>
-                `flex min-h-11 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-control px-3 py-2.5 text-sm md:justify-start md:gap-3 ${
-                  isActive
-                    ? "bg-primary-soft font-semibold text-primary"
-                    : "font-medium text-body hover:bg-surface-muted hover:text-heading"
-                }`
-              }
-            >
-              <Truck size={18} strokeWidth={1.75} aria-hidden="true" className="shrink-0" />
-              <span>Suppliers</span>
-            </NavLink>
+            {purchasingLinks.map(({ to, label, icon: Icon }) => (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) =>
+                  `flex min-h-11 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-control px-3 py-2.5 text-sm md:justify-start md:gap-3 ${
+                    isActive
+                      ? "bg-primary-soft font-semibold text-primary"
+                      : "font-medium text-body hover:bg-surface-muted hover:text-heading"
+                  }`
+                }
+              >
+                <Icon size={18} strokeWidth={1.75} aria-hidden="true" className="shrink-0" />
+                <span>{label}</span>
+              </NavLink>
+            ))}
           </>
         )}
       </nav>

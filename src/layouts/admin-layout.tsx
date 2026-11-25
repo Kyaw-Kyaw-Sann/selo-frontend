@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import Header from "./header";
 import Sidebar from "./sidebar";
 
 export default function AdminLayout() {
@@ -14,8 +13,6 @@ export default function AdminLayout() {
       <Sidebar />
 
       <div className="min-w-0 flex-1">
-        <Header />
-
         <main id="main-content" tabIndex={-1} className="mx-auto w-full min-w-0 max-w-[1440px] px-4 py-6 md:px-6 md:py-8 lg:px-8">
           <Outlet />
         </main>
